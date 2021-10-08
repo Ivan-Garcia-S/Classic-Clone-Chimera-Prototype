@@ -22,18 +22,6 @@ let game = new Phaser.Game(config);
 
 let keySPACE, keyLEFT, keyRIGHT, keyESC, keyUP, keyDOWN, keyA, keyW, keyS, keyD, keyTAB, keyR;
 
-//lists of contracts and upgrades
-let contractInfo = {
-    postName: this.currentCompany,
-    infoOne: 'Your life savings were',
-    infoTwo: 'spent opening this up.',
-    infoThree: 'It better have been',
-    infoFour: 'worth it...',
-    ammount: 'Motivation'
-};
-
-
-
 // Often used locations coordinates
 let screenWidth = game.config.width;
 let screenHeight = game.config.height;
