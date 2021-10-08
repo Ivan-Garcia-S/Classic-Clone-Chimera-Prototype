@@ -352,7 +352,7 @@ class Play extends Phaser.Scene {
         this.p1Stop = true;
         this.p2Stop = true;
 
-        //Move the bag right
+        //Player 2 shoots
         if(Phaser.Input.Keyboard.JustDown(keyTAB)) {
             let p2Shot
             if(this.player2.dir == "Up"){
@@ -374,8 +374,15 @@ class Play extends Phaser.Scene {
                 p2Shot.angle = 90;
                 p2Shot.setVelocity(0,100);
             }
+            p2Shot.hits = 0;
+            p2Shot.setBounce(1.25,1.25);
             let collider6 = this.physics.add.collider(p2Shot, this.recs, null, function(){
-                p2Shot.visible = false;
+                if(p2Shot.hits == 0){
+                    p2Shot.hits += 1;
+                }
+                else{
+                    p2Shot.destroy();
+                }
                 this.sound.play('hit');
             }, this);
             let p1Hit = this.physics.add.collider(p2Shot, this.player1, null, function(){
@@ -387,9 +394,9 @@ class Play extends Phaser.Scene {
 
         }
         
-        //Change dispenser1 to a roach dispenser when you hit spacebar
+        //Player 1 shoots
         if(Phaser.Input.Keyboard.JustDown(keySPACE)) {
-            let p1Shot
+            let p1Shot;
             if(this.player1.dir == "Up"){
                 p1Shot = this.physics.add.sprite(this.player1.x - 3, this.player1.y - 17, 'bullet');
                 this.shots.add(p1Shot);
@@ -415,8 +422,15 @@ class Play extends Phaser.Scene {
                 p1Shot.setVelocity(0,100);
                 
             }
+            p1Shot.hits = 0;
+            p1Shot.setBounce(1.25,1.25);
             let collider5 = this.physics.add.collider(p1Shot, this.recs, null, function(){
-                p1Shot.visible = false;
+                if(p1Shot.hits == 0){
+                    p1Shot.hits += 1;
+                }
+                else{
+                    p1Shot.destroy();
+                }
                 this.sound.play('hit');
              }, this);
              let p2Hit = this.physics.add.collider(p1Shot, this.player2, null, function(){
