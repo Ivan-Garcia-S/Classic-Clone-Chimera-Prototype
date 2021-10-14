@@ -15,7 +15,7 @@ class Title extends Phaser.Scene {
             },
             fixedWidth: 0
         }
-        this.add.text(500, 500, 'Press R to start the game', textConfig).setOrigin(0.5);
+        this.add.text(game.config.width/2, game.config.height/2, 'Press R to start the game', textConfig).setOrigin(0.5);
         keyR = this.input.keyboard.addKey(Phaser.Input.Keyboard.KeyCodes.R);
         
     }
