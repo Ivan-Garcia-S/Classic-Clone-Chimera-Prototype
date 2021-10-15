@@ -21,6 +21,7 @@ class Play extends Phaser.Scene {
         this.load.image('sides', 'Left_right.png');
         this.load.image('bullet', "Bullet.png");
         this.load.image('blip', 'Blip.png');
+        this.load.image('enemy', 'Temp_Enemy.png');
         this.load.audio('hit', 'Hit.wav');  //Created by colorsCrimsonTears on freesound.org
         this.load.audio('coin', 'coin.wav');  //Created by SRJA_Gaming on freesound.org
         this.load.spritesheet('PlayerRed', 'PlayerRed.png', {frameWidth: 32, frameHeight: 32});
@@ -37,6 +38,8 @@ class Play extends Phaser.Scene {
 
         this.p1Stop = false;
         this.p2Stop = false;
+        this.spawnEnemy = true;
+
         
         //Text configs
         this.defaultTextConfig = {fontFamily: 'purse', fontSize: '38px', backgroundColor: '#FFFFFF00', color: '#000000', align: 'center'};
@@ -125,6 +128,7 @@ class Play extends Phaser.Scene {
         this.recs = this.physics.add.group();
         this.shots = this.physics.add.group();
         this.blips = this.physics.add.group();
+        this.enemies = this.physics.add.group();
 
         //Player Creation
         // this.player1 = this.physics.add.sprite(415, 315,'p1');
@@ -138,9 +142,21 @@ class Play extends Phaser.Scene {
         // this.player2.score = 0;
 
         //Borders
-        this.wall1 = this.physics.add.image(140, 150, 'Top').setOrigin(0,0);
-        this.recs.add(this.wall1);
-        this.wall1.setImmovable(true);
+        this.wall1_1 = this.physics.add.image(140, 150, 'Top').setOrigin(0,0);
+        this.wall1_1.setScale(.46,1);
+        this.recs.add(this.wall1_1);
+        this.wall1_1.setImmovable(true);
+
+        this.wall1_2 = this.physics.add.image(550, 150, 'Top').setOrigin(0,0);
+        this.wall1_2.setScale(.45,1);
+        this.recs.add(this.wall1_2);
+        this.wall1_2.setImmovable(true);
+
+        this.wall1_3 = this.physics.add.image(463, 174, 'M_hor').setOrigin(0,0);
+        this.wall1_3.setScale(.4,1);
+        this.recs.add(this.wall1_3);
+        this.wall1_3.setImmovable(true);
+
         this.wall2 = this.physics.add.image(140, 585, 'Top').setOrigin(0,0);
         this.recs.add(this.wall2);
         this.wall2.setImmovable(true);
@@ -233,6 +249,7 @@ class Play extends Phaser.Scene {
         let collider4 = this.physics.add.collider(this.p2, this.recs, null, function(){
             this.p2.setVelocity(0,0);
         }, this);
+        
 
     }
 
@@ -249,256 +266,30 @@ class Play extends Phaser.Scene {
         this.p2Action = false;
 
 
-        // //Player 1 controls
-        // if(keyLEFT.isDown == true){
-        //     this.player1.setVelocity(-80,0);
-        //     this.p1Action = true;
-        //     if(this.player1.dir == "Right"){
-        //         this.player1.flipX = true;
-        //         this.player1.dir = "Left";
-        //     }
-        //     else if(this.player1.dir == "Up"){
-        //         this.player1.angle = 0;
-        //         this.player1.flipX = true;
-        //         this.player1.dir = "Left";
-        //     }
-        //     else if(this.player1.dir == "Down"){
-        //         this.player1.angle = 0;
-        //         this.player1.flipX = true;
-        //         this.player1.dir = "Left";
-        //     }
-        //     this.player1.dir = "Left";
-        // }
-        // if(keyRIGHT.isDown == true){
-        //     this.player1.setVelocity(80,0);
-        //     this.p1Action = true;
-        //     if(this.player1.dir == "Left"){
-        //         this.player1.flipX= false;
-        //         this.player1.dir = "Right";
-        //     }
-        //     else if(this.player1.dir == "Up"){
-        //         this.player1.angle = 0;
-        //         this.player1.dir = "Right";
-        //     }
-        //     else if(this.player1.dir == "Down"){
-        //         this.player1.angle = 0;
-        //         this.player1.dir = "Right";
-        //     }
-        //     this.player1.dir = "Right";
-           
-        // }
-        // if(keyUP.isDown == true){
-        //     this.player1.setVelocity(0,-80);
-        //     this.p1Action = true;
-        //     if(this.player1.dir == "Left"){
-        //         this.player1.flipX = false;
-        //         this.player1.angle = -90
-        //         this.player1.dir = "Up";
-        //     }
-        //     else if(this.player1.dir == "Down"){
-        //         this.player1.angle = -90;
-        //         this.player1.dir = "Up";
-        //     }
-        //     else if(this.player1.dir == "Right"){
-        //         this.player1.angle = -90;
-        //         this.player1.dir = "Up";
-        //     }
-        //     this.player1.dir = "Up";
+        //Spawn Enemies
+        if(this.spawnEnemy){
+            let newEnemy = new Enemy(this, 508, 171, 'enemy').setScale(.7);
+            //this.enemies.add(newEnemy);
+            newEnemy.setBounce(1,1);
+            let enemyCollider = this.physics.add.collider(newEnemy,this.recs, null, function(){
+                //newEnemy.setBounce(1,1);
+            }, this);
+            let p1Collider = this.physics.add.collider(newEnemy,this.p1, null, function(){
+                newEnemy.destroy();
+                this.p1.x = 502;
+                this.p1.y = 365;
+            }, this);
+            let p2Collider = this.physics.add.collider(newEnemy,this.p2, null, function(){
+                newEnemy.destroy();
+                this.p2.x = 502;
+                this.p2.y = 365;
+            }, this);
             
-        // }
-        // if(keyDOWN.isDown == true){
-        //     this.player1.setVelocity(0,80);
-        //     this.p1Action = true;
-        //     if(this.player1.dir == "Left"){
-        //         this.player1.flipX = false;
-        //         this.player1.angle = 90;
-        //         this.player1.dir = "Down";
-        //     }
-        //     else if(this.player1.dir == "Up"){
-        //         this.player1.angle = 90;
-        //         this.player1.dir = "Down";
-        //     }
-        //     else if(this.player1.dir == "Right"){
-        //         this.player1.angle = 90;
-        //         this.player1.dir = "Down";
-        //     }
-        //     this.player1.dir = "Down";
-        // }
-
-        // if (this.p1Action == false){
-        //     this.player1.setVelocity(0,0)
-        // }
-        
-        // //Player 2 controls
-        // if(keyA.isDown == true){
-        //     this.player2.setVelocity(-80,0);
-        //     this.p2Action = true;
-        //     if(this.player2.dir == "Right"){
-        //         this.player2.flipX = true;
-        //         this.player2.dir = "Left";
-        //     }
-        //     else if(this.player2.dir == "Up"){
-        //         this.player2.angle = 0;
-        //         this.player2.flipX = true;
-        //         this.player2.dir = "Left";
-        //     }
-        //     else if(this.player2.dir == "Down"){
-        //         this.player2.angle = 0;
-        //         this.player2.flipX = true;
-        //         this.player2.dir = "Left";
-        //     }
-        //     this.player2.dir = "Left";
-        // }
-        // if(keyD.isDown == true){
-        //     this.player2.setVelocity(80,0);
-        //     this.p2Action = true;
-        //     if(this.player2.dir == "Left"){
-        //         this.player2.flipX= false;
-        //         this.player2.dir = "Right";
-        //     }
-        //     else if(this.player2.dir == "Up"){
-        //         this.player2.angle = 0;
-        //         this.player2.dir = "Right";
-        //     }
-        //     else if(this.player2.dir == "Down"){
-        //         this.player2.angle = 0;
-        //         this.player2.dir = "Right";
-        //     }
-        //     this.player2.dir = "Right";
-           
-        // }
-        // if(keyW.isDown == true){
-        //     this.player2.setVelocity(0,-80);
-        //     this.p2Action = true;
-        //     if(this.player2.dir == "Left"){
-        //         this.player2.flipX = false;
-        //         this.player2.angle = -90
-        //         this.player2.dir = "Up";
-        //     }
-        //     else if(this.player2.dir == "Down"){
-        //         this.player2.angle = -90;
-        //         this.player2.dir = "Up";
-        //     }
-        //     else if(this.player2.dir == "Right"){
-        //         this.player2.angle = -90;
-        //         this.player2.dir = "Up";
-        //     }
-        //     this.player2.dir = "Up";
-            
-        // }
-        // if(keyS.isDown == true){
-        //     this.player2.setVelocity(0,80);
-        //     this.p2Action = true;
-        //     if(this.player2.dir == "Left"){
-        //         this.player2.flipX = false;
-        //         this.player2.angle = 90;
-        //         this.player2.dir = "Down";
-        //     }
-        //     else if(this.player2.dir == "Up"){
-        //         this.player2.angle = 90;
-        //         this.player2.dir = "Down";
-        //     }
-        //     else if(this.player2.dir == "Right"){
-        //         this.player2.angle = 90;
-        //         this.player2.dir = "Down";
-        //     }
-        //     this.player2.dir = "Down";
-        // }
-        // if (this.p2Action == false){
-        //     this.player2.setVelocity(0,0)
-        // }
-
-        // this.p1Stop = true;
-        // this.p2Stop = true;
-
-        //Player 2 shoots
-        // if(Phaser.Input.Keyboard.JustDown(keyTAB)) {
-        //     let p2Shot
-        //     if(this.player2.dir == "Up"){
-        //         p2Shot = this.physics.add.sprite(this.player2.x - 3, this.player2.y - 17, 'bullet');
-                
-        //         p2Shot.angle = 90;
-        //         p2Shot.setVelocity(0, -100);
-        //     }
-        //     else if(this.player2.dir == "Right"){
-        //         p2Shot = this.physics.add.sprite(this.player2.x + 15, this.player2.y - 3, 'bullet');
-        //         p2Shot.setVelocity(100, 0);
-        //     }
-        //     else if(this.player2.dir == "Left"){
-        //         p2Shot = this.physics.add.sprite(this.player2.x - 17, this.player2.y - 1, 'bullet');
-        //         p2Shot.setVelocity(-100,0);
-        //     }
-        //     else if(this.player2.dir == "Down"){
-        //         p2Shot = this.physics.add.sprite(this.player2.x + 5, this.player2.y + 18, 'bullet');
-        //         p2Shot.angle = 90;
-        //         p2Shot.setVelocity(0,100);
-        //     }
-        //     p2Shot.hits = 0;
-        //     p2Shot.setBounce(1.25,1.25);
-        //     let collider6 = this.physics.add.collider(p2Shot, this.recs, null, function(){
-        //         if(p2Shot.hits == 0){
-        //             p2Shot.hits += 1;
-        //         }
-        //         else{
-        //             p2Shot.destroy();
-        //         }
-        //         this.sound.play('hit');
-        //     }, this);
-        //     let p1Hit = this.physics.add.collider(p2Shot, this.player1, null, function(){
-        //         this.player1.x = 493;
-        //         this.player1.y = 327;
-        //         p2Shot.destroy();
-        //         this.sound.play('hit');
-        //     }, this);
-
-        // }
-        
-        // //Player 1 shoots
-        // if(Phaser.Input.Keyboard.JustDown(keySPACE)) {
-        //     let p1Shot;
-        //     if(this.player1.dir == "Up"){
-        //         p1Shot = this.physics.add.sprite(this.player1.x - 3, this.player1.y - 17, 'bullet');
-        //         this.shots.add(p1Shot);
-        //         p1Shot.angle = 90;
-        //         p1Shot.setVelocity(0, -100);   
-        //     }
-        //     else if(this.player1.dir == "Right"){
-        //         p1Shot = this.physics.add.sprite(this.player1.x + 15, this.player1.y - 3, 'bullet');
-        //         this.shots.add(p1Shot);
-        //         p1Shot.setVelocity(100, 0);
-                
-        //     }
-        //     else if(this.player1.dir == "Left"){
-        //         p1Shot = this.physics.add.sprite(this.player1.x - 17, this.player1.y - 1, 'bullet');
-        //         this.shots.add(p1Shot);
-        //         p1Shot.setVelocity(-100,0);
-
-        //     }
-        //     else if(this.player1.dir == "Down"){
-        //         p1Shot = this.physics.add.sprite(this.player1.x + 5, this.player1.y + 18, 'bullet');
-        //         this.shots.add(p1Shot);
-        //         p1Shot.angle = 90;
-        //         p1Shot.setVelocity(0,100);
-                
-        //     }
-        //     p1Shot.hits = 0;
-        //     p1Shot.setBounce(1.25,1.25);
-        //     let collider5 = this.physics.add.collider(p1Shot, this.recs, null, function(){
-        //         if(p1Shot.hits == 0){
-        //             p1Shot.hits += 1;
-        //         }
-        //         else{
-        //             p1Shot.destroy();
-        //         }
-        //         this.sound.play('hit');
-        //      }, this);
-        //      let p2Hit = this.physics.add.collider(p1Shot, this.player2, null, function(){
-        //         this.player2.x = 495;
-        //         this.player2.y = 376;
-        //         p1Shot.destroy();
-        //         this.sound.play('hit');
-        //     }, this);
-        // }
+            this.spawnEnemy = false;
+            this.time.delayedCall(3000, () => {
+                this.spawnEnemy = true;
+            });
+        }
 
         if(Phaser.Input.Keyboard.JustDown(keyR)) {
             this.scene.start('playScene');
