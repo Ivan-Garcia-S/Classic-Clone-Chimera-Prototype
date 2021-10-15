@@ -18,7 +18,11 @@ class Player extends Phaser.Physics.Arcade.Sprite {
         this.left = left
 
         //Initialize starting animation to idle
-        this.anims.play('idle', true);
+        if (this.texture.key == "PlayerRed") {
+            this.anims.play('idle1', true);
+        } else {
+            this.anims.play('idle2', true);
+        }
     }
 
     update(scene) {
@@ -26,9 +30,17 @@ class Player extends Phaser.Physics.Arcade.Sprite {
 
         //Play running animation when moving and idle when standing still
         if (this.body.velocity.x != 0 || this.body.velocity.y !=0) {
-            this.anims.play('run', true);
+            if (this.texture.key == "PlayerRed") {
+                this.anims.play('run1', true);
+            } else {
+                this.anims.play('run2', true);
+            }
         } else {
-            this.anims.play('idle', true);
+            if (this.texture.key == "PlayerRed") {
+                this.anims.play('idle1', true);
+            } else {
+                this.anims.play('idle2', true);
+            }
         }
 
         //One Direction player movement

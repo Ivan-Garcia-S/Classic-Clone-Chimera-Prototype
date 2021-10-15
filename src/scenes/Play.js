@@ -69,49 +69,49 @@ class Play extends Phaser.Scene {
 
         //Create Player Animations
         this.anims.create({
-            key: 'idle',
+            key: 'idle1',
             frameRate: 8,
             repeat: -1,
             frames: this.anims.generateFrameNumbers('PlayerRed', { start: 0, end: 19 }),
         });
         this.anims.create({
-            key: 'idle',
+            key: 'idle2',
             frameRate: 8,
             repeat: -1,
             frames: this.anims.generateFrameNumbers('PlayerBlue', { start: 0, end: 19 }),
         });
         this.anims.create({
-            key: 'attack',
+            key: 'attack1',
             frameRate: 8,
             repeat: -1,
             frames: this.anims.generateFrameNumbers('PlayerRed', { start: 20, end: 31 }),
         });
         this.anims.create({
-            key: 'attack',
+            key: 'attack2',
             frameRate: 8,
             repeat: -1,
             frames: this.anims.generateFrameNumbers('PlayerBlue', { start: 20, end: 31 }),
         });
         this.anims.create({
-            key: 'run',
+            key: 'run1',
             frameRate: 8,
             repeat: -1,
             frames: this.anims.generateFrameNumbers('PlayerRed', { start: 32, end: 41 }),
         });
         this.anims.create({
-            key: 'run',
+            key: 'run2',
             frameRate: 8,
             repeat: -1,
             frames: this.anims.generateFrameNumbers('PlayerBlue', { start: 32, end: 41 }),
         });
         this.anims.create({
-            key: 'throw',
+            key: 'throw1',
             frameRate: 8,
             repeat: -1,
             frames: this.anims.generateFrameNumbers('PlayerRed', { start: 42, end: 43 }),
         });
         this.anims.create({
-            key: 'throw',
+            key: 'throw2',
             frameRate: 8,
             repeat: -1,
             frames: this.anims.generateFrameNumbers('PlayerBlue', { start: 42, end: 43 }),
