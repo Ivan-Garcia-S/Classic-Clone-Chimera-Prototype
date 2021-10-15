@@ -21,8 +21,10 @@ class Play extends Phaser.Scene {
         this.load.image('sides', 'Left_right.png');
         this.load.image('bullet', "Bullet.png");
         this.load.image('blip', 'Blip.png');
+        this.load.image('enemy', 'Temp_Enemy.png');
         this.load.audio('hit', 'Hit.wav');  //Created by colorsCrimsonTears on freesound.org
         this.load.audio('coin', 'coin.wav');  //Created by SRJA_Gaming on freesound.org
+
     }
 
     create() {
@@ -32,6 +34,8 @@ class Play extends Phaser.Scene {
 
         this.p1Stop = false;
         this.p2Stop = false;
+        this.spawnEnemy = true;
+
         
         //Text configs
         this.defaultTextConfig = {fontFamily: 'purse', fontSize: '38px', backgroundColor: '#FFFFFF00', color: '#000000', align: 'center'};
@@ -48,6 +52,7 @@ class Play extends Phaser.Scene {
         this.recs = this.physics.add.group();
         this.shots = this.physics.add.group();
         this.blips = this.physics.add.group();
+        this.enemies = this.physics.add.group();
 
 
         //Player Creation
@@ -64,9 +69,21 @@ class Play extends Phaser.Scene {
         this.player2.score = 0;
 
         //Borders
-        this.wall1 = this.physics.add.image(140, 150, 'Top').setOrigin(0,0);
-        this.recs.add(this.wall1);
-        this.wall1.setImmovable(true);
+        this.wall1_1 = this.physics.add.image(140, 150, 'Top').setOrigin(0,0);
+        this.wall1_1.setScale(.46,1);
+        this.recs.add(this.wall1_1);
+        this.wall1_1.setImmovable(true);
+
+        this.wall1_2 = this.physics.add.image(550, 150, 'Top').setOrigin(0,0);
+        this.wall1_2.setScale(.45,1);
+        this.recs.add(this.wall1_2);
+        this.wall1_2.setImmovable(true);
+
+        this.wall1_3 = this.physics.add.image(463, 174, 'M_hor').setOrigin(0,0);
+        this.wall1_3.setScale(.4,1);
+        this.recs.add(this.wall1_3);
+        this.wall1_3.setImmovable(true);
+
         this.wall2 = this.physics.add.image(140, 585, 'Top').setOrigin(0,0);
         this.recs.add(this.wall2);
         this.wall2.setImmovable(true);
@@ -161,6 +178,7 @@ class Play extends Phaser.Scene {
         let collider4 = this.physics.add.collider(this.player2, this.recs, null, function(){
             this.player1.setVelocity(0,0);
         }, this);
+        
 
         //Define keys
         keySPACE = this.input.keyboard.addKey(Phaser.Input.Keyboard.KeyCodes.SPACE);
@@ -188,6 +206,25 @@ class Play extends Phaser.Scene {
 
         this.p1Action = false;
         this.p2Action = false;
+
+
+        //Spawn Enemies
+        if(this.spawnEnemy){
+            let newEnemy = new Enemy(this, 508, 171, 'enemy').setScale(.7);
+            //this.enemies.add(newEnemy);
+            newEnemy.setBounce(1,1);
+            let enemyCollider = this.physics.add.collider(newEnemy,this.recs, null, function(){
+                //newEnemy.setBounce(1,1);
+            }, this);
+            
+           // newEnemy.body.velocity.x = velX;
+            //newEnemy.body.velocity.y = velY;
+            //setVelocity(velX, velY);
+            this.spawnEnemy = false;
+            this.time.delayedCall(3000, () => {
+                this.spawnEnemy = true;
+            });
+        }
 
 
         //Player 1 controls
