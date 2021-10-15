@@ -23,9 +23,14 @@ class Play extends Phaser.Scene {
         this.load.image('blip', 'Blip.png');
         this.load.audio('hit', 'Hit.wav');  //Created by colorsCrimsonTears on freesound.org
         this.load.audio('coin', 'coin.wav');  //Created by SRJA_Gaming on freesound.org
+        this.load.spritesheet('PlayerRed', 'PlayerRed.png', {frameWidth: 32, frameHeight: 32});
+        this.load.spritesheet('PlayerBlue', 'PlayerBlue.png', {frameWidth: 32, frameHeight: 32});
+        this.load.image('tempBG', 'tempBG.png');
     }
 
     create() {
+        // Temporary background to see the player sprites
+        this.background = this.add.image(0, 0, 'tempBG').setOrigin(0,0);
 
         //Initialize data variables
         this.frameCount = 0;
@@ -59,12 +64,62 @@ class Play extends Phaser.Scene {
         keyTAB = this.input.keyboard.addKey(Phaser.Input.Keyboard.KeyCodes.TAB);
         keyR = this.input.keyboard.addKey(Phaser.Input.Keyboard.KeyCodes.R);
 
-        //create players
-        this.p1 = new Player(this, 415, 315, keyUP, keyDOWN, keyLEFT, keyRIGHT, 'p1');
-        this.p1.scale = .5;
+        //Create Player Animations
+        this.anims.create({
+            key: 'idle',
+            frameRate: 8,
+            repeat: -1,
+            frames: this.anims.generateFrameNumbers('PlayerRed', { start: 0, end: 19 }),
+        });
+        this.anims.create({
+            key: 'idle',
+            frameRate: 8,
+            repeat: -1,
+            frames: this.anims.generateFrameNumbers('PlayerBlue', { start: 0, end: 19 }),
+        });
+        this.anims.create({
+            key: 'attack',
+            frameRate: 8,
+            repeat: -1,
+            frames: this.anims.generateFrameNumbers('PlayerRed', { start: 20, end: 31 }),
+        });
+        this.anims.create({
+            key: 'attack',
+            frameRate: 8,
+            repeat: -1,
+            frames: this.anims.generateFrameNumbers('PlayerBlue', { start: 20, end: 31 }),
+        });
+        this.anims.create({
+            key: 'run',
+            frameRate: 8,
+            repeat: -1,
+            frames: this.anims.generateFrameNumbers('PlayerRed', { start: 32, end: 41 }),
+        });
+        this.anims.create({
+            key: 'run',
+            frameRate: 8,
+            repeat: -1,
+            frames: this.anims.generateFrameNumbers('PlayerBlue', { start: 32, end: 41 }),
+        });
+        this.anims.create({
+            key: 'throw',
+            frameRate: 8,
+            repeat: -1,
+            frames: this.anims.generateFrameNumbers('PlayerRed', { start: 42, end: 43 }),
+        });
+        this.anims.create({
+            key: 'throw',
+            frameRate: 8,
+            repeat: -1,
+            frames: this.anims.generateFrameNumbers('PlayerBlue', { start: 42, end: 43 }),
+        });
 
-        this.p2 = new Player(this, 575, 315, keyW, keyS, keyA, keyD, 'p2');
-        this.p2.scale = .5;
+        //create players
+        this.p1 = new Player(this, 415, 315, keyUP, keyDOWN, keyLEFT, keyRIGHT, 'PlayerRed');
+        // this.p1.scale = .5;
+
+        this.p2 = new Player(this, 575, 315, keyW, keyS, keyA, keyD, 'PlayerBlue');
+        //this.p2.scale = .5;
 
         //Groups
         this.recs = this.physics.add.group();

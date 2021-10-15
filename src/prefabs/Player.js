@@ -16,10 +16,20 @@ class Player extends Phaser.Physics.Arcade.Sprite {
         this.down = down;
         this.right = right;
         this.left = left
+
+        //Initialize starting animation to idle
+        this.anims.play('idle', true);
     }
 
     update(scene) {
         this.ACTION = false;
+
+        //Play running animation when moving and idle when standing still
+        if (this.body.velocity.x != 0 || this.body.velocity.y !=0) {
+            this.anims.play('run', true);
+        } else {
+            this.anims.play('idle', true);
+        }
 
         //One Direction player movement
         if(this.down.isDown == true){
