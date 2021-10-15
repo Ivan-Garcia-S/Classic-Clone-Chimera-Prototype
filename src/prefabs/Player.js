@@ -18,7 +18,7 @@ class Player extends Phaser.Physics.Arcade.Sprite {
         this.left = left
 
         //Initialize starting animation to idle
-        if (this.texture.key == "PlayerRed") {
+        if (this.texture.key == "Player1") {
             this.anims.play('idle1', true);
         } else {
             this.anims.play('idle2', true);
@@ -30,13 +30,13 @@ class Player extends Phaser.Physics.Arcade.Sprite {
 
         //Play running animation when moving and idle when standing still
         if (this.body.velocity.x != 0 || this.body.velocity.y !=0) {
-            if (this.texture.key == "PlayerRed") {
-                this.anims.play('run1', true);
+            if (this.texture.key == "Player1") {
+                this.anims.play('walk1', true);
             } else {
-                this.anims.play('run2', true);
+                this.anims.play('walk2', true);
             }
         } else {
-            if (this.texture.key == "PlayerRed") {
+            if (this.texture.key == "Player1") {
                 this.anims.play('idle1', true);
             } else {
                 this.anims.play('idle2', true);
