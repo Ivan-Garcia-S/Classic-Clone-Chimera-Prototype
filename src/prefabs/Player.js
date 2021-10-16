@@ -1,5 +1,5 @@
 class Player extends Phaser.Physics.Arcade.Sprite {
-    constructor(scene, x, y, up, down, left, right, texture, frame) {
+    constructor(scene, x, y, up, down, left, right, attack, texture, frame) {
         super(scene, x, y, texture, frame);
         scene.add.existing(this);
         scene.physics.add.existing(this);
@@ -15,7 +15,8 @@ class Player extends Phaser.Physics.Arcade.Sprite {
         this.up = up;
         this.down = down;
         this.right = right;
-        this.left = left
+        this.left = left;
+        this.attack = attack;
 
         //Initialize starting animation to idle
         if (this.texture.key == "Player1") {
@@ -23,23 +24,41 @@ class Player extends Phaser.Physics.Arcade.Sprite {
         } else {
             this.anims.play('idle2', true);
         }
+        this.isAttacking = false;
     }
 
-    update(scene) {
+    update(scene, time) {
         this.ACTION = false;
 
         //Play running animation when moving and idle when standing still
-        if (this.body.velocity.x != 0 || this.body.velocity.y !=0) {
-            if (this.texture.key == "Player1") {
-                this.anims.play('walk1', true);
+        if (this.isAttacking == false) {
+            if (this.body.velocity.x != 0 || this.body.velocity.y !=0) {
+                if (this.texture.key == "Player1") {
+                    this.anims.play('walk1', true);
+                } else {
+                    this.anims.play('walk2', true);
+                }
             } else {
-                this.anims.play('walk2', true);
+                if (this.texture.key == "Player1") {
+                    this.anims.play('idle1', true);
+                } else {
+                    this.anims.play('idle2', true);
+                }
             }
-        } else {
+        }
+        //Play attack animation on button press
+        if (this.attack.isDown == true && this.isAttacking == false) {
+            this.isAttacking = true;
             if (this.texture.key == "Player1") {
-                this.anims.play('idle1', true);
+                this.anims.play('attack1', true);
+                time.delayedCall(1000, () => {
+                    this.isAttacking = false;
+                });
             } else {
-                this.anims.play('idle2', true);
+                this.anims.play('attack2', true);
+                time.delayedCall(1000, () => {
+                    this.isAttacking = false;
+                });
             }
         }
 

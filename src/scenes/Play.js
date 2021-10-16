@@ -59,13 +59,17 @@ class Play extends Phaser.Scene {
         keyLEFT = this.input.keyboard.addKey(Phaser.Input.Keyboard.KeyCodes.LEFT);
         keyUP = this.input.keyboard.addKey(Phaser.Input.Keyboard.KeyCodes.UP);
         keyDOWN = this.input.keyboard.addKey(Phaser.Input.Keyboard.KeyCodes.DOWN);
-        
+        // temporary attack key for p1
+        keyF = this.input.keyboard.addKey(Phaser.Input.Keyboard.KeyCodes.F);
+
         keyW = this.input.keyboard.addKey(Phaser.Input.Keyboard.KeyCodes.W);
         keyA = this.input.keyboard.addKey(Phaser.Input.Keyboard.KeyCodes.A);
         keyS = this.input.keyboard.addKey(Phaser.Input.Keyboard.KeyCodes.S);
         keyD = this.input.keyboard.addKey(Phaser.Input.Keyboard.KeyCodes.D);
         keyTAB = this.input.keyboard.addKey(Phaser.Input.Keyboard.KeyCodes.TAB);
         keyR = this.input.keyboard.addKey(Phaser.Input.Keyboard.KeyCodes.R);
+        // temporary attack key for p2
+        keyCTRL = this.input.keyboard.addKey(Phaser.Input.Keyboard.KeyCodes.CTRL);
 
         //Create Player Animations
         this.anims.create({
@@ -82,14 +86,14 @@ class Play extends Phaser.Scene {
         });
         this.anims.create({
             key: 'attack1',
-            frameRate: 8,
-            repeat: -1,
+            frameRate: 16,
+            repeat: 0,
             frames: this.anims.generateFrameNumbers('Player1', { start: 20, end: 31 }),
         });
         this.anims.create({
             key: 'attack2',
-            frameRate: 8,
-            repeat: -1,
+            frameRate: 16,
+            repeat: 0,
             frames: this.anims.generateFrameNumbers('Player2', { start: 20, end: 31 }),
         });
         this.anims.create({
@@ -107,21 +111,21 @@ class Play extends Phaser.Scene {
         this.anims.create({
             key: 'throw1',
             frameRate: 8,
-            repeat: -1,
+            repeat: 0,
             frames: this.anims.generateFrameNumbers('Player1', { start: 42, end: 43 }),
         });
         this.anims.create({
             key: 'throw2',
             frameRate: 8,
-            repeat: -1,
+            repeat: 0,
             frames: this.anims.generateFrameNumbers('Player2', { start: 42, end: 43 }),
         });
 
         //create players
-        this.p1 = new Player(this, 415, 315, keyUP, keyDOWN, keyLEFT, keyRIGHT, 'Player1');
+        this.p1 = new Player(this, 415, 315, keyUP, keyDOWN, keyLEFT, keyRIGHT, keyF, 'Player1');
         // this.p1.scale = .5;
 
-        this.p2 = new Player(this, 575, 315, keyW, keyS, keyA, keyD, 'Player2');
+        this.p2 = new Player(this, 575, 315, keyW, keyS, keyA, keyD, keyCTRL, 'Player2');
         //this.p2.scale = .5;
 
         //Groups
@@ -256,8 +260,8 @@ class Play extends Phaser.Scene {
     update() {
 
         //update players
-        this.p1.update(this);
-        this.p2.update(this);
+        this.p1.update(this, this.time);
+        this.p2.update(this, this.time);
 
         //How many frames have elapsed since the start of the scene
         this.frameCount++;
