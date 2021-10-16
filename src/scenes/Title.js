@@ -16,6 +16,9 @@ class Title extends Phaser.Scene {
             fixedWidth: 0
         }
         this.add.text(game.config.width/2, game.config.height/2, 'Press R to start the game', textConfig).setOrigin(0.5);
+        this.add.text(game.config.width/2, game.config.height/2 + 100, 'Instructions:WASD for player1. Arrow keys for player2\n F for p1. Rctrl for p2.', textConfig).setOrigin(0.5);
+        this.add.text(game.config.width/2, game.config.height/2 + 150, 'Attack floating enemies or avoid them.', textConfig).setOrigin(0.5);
+        
         keyR = this.input.keyboard.addKey(Phaser.Input.Keyboard.KeyCodes.R);
         
     }
