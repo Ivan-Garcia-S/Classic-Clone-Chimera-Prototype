@@ -224,10 +224,12 @@ class Play extends Phaser.Scene {
                 if(j == 6){
                     blip = this.physics.add.image(200 + 62*i, 210 + j*55 + 10, 'blip');
                     blip.setScale(0.4);
+                    this.blips.add(blip);
                 }
                 else if (!((i == 4 && j == 2) || (i == 4 && j == 3) || (i == 5 && j == 2) || 
                          (i == 5 && j == 3) || (i == 6 && j == 2) || (i == 6 && j ==3))){
                     blip = this.physics.add.image(200 + 62*i, 210 + j*55, 'blip');
+                    this.blips.add(blip);
                     blip.setScale(0.4);
                 }
                 let collider8 = this.physics.add.collider(this.p1, blip, null, function(){
@@ -295,9 +297,13 @@ class Play extends Phaser.Scene {
             let p1Collider = this.physics.add.collider(newEnemy,this.p1, null, function(){
                 if(this.p1.isAttacking == true && this.p1.flipX == false && newEnemy.x > this.p1.x){
                     newEnemy.destroy();
+                    this.p1.score += 5;
+                    this.p1Score.text = "P1: " + this.p1.score;
                 }
                 else if(this.p1.isAttacking == true && this.p1.flipX == true && newEnemy.x < this.p1.x){
                     newEnemy.destroy();
+                    this.p1.score += 5;
+                    this.p1Score.text = "P1: " + this.p1.score;
                 }
                 else{
                     newEnemy.destroy(); 
@@ -308,9 +314,13 @@ class Play extends Phaser.Scene {
             let p2Collider = this.physics.add.collider(newEnemy,this.p2, null, function(){
                 if(this.p2.isAttacking == true && this.p2.flipX == false && newEnemy.x > this.p2.x){
                     newEnemy.destroy();
+                    this.p2.score += 5;
+                    this.p2Score.text = "P2: " + this.p2.score;
                 }
                 else if(this.p2.isAttacking == true && this.p2.flipX == true && newEnemy.x < this.p2.x){
                     newEnemy.destroy();
+                    this.p2.score += 5;
+                    this.p2Score.text = "P2: " + this.p2.score;
                 }
                 else{
                     newEnemy.destroy(); 
@@ -324,7 +334,8 @@ class Play extends Phaser.Scene {
                 this.spawnEnemy = true;
             });
         }
-        if(this.p1.score + this.p2.score == 50){
+        if(this.blips.countActive() == 0){
+        //if(this.p1.score + this.p2.score == 710){
             p1FinalScore = this.p1.score;
             p2FinalScore = this.p2.score;
             this.scene.start('gameOverScene');
