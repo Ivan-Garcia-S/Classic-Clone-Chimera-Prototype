@@ -3,9 +3,16 @@ class Title extends Phaser.Scene {
     constructor() {
         super("titleScene");
     }
+    preload(){
+        this.load.path = './assets/'; 
+        this.load.spritesheet('Player1', 'PlayerRed.png', {frameWidth: 32, frameHeight: 32});
+        this.load.image('p2', 'Player_2.png');
+        this.load.spritesheet('flippedPlayer', 'PlayerBlueF.png', {frameWidth: 32, frameHeight: 32});
+        this.load.image('tempBG', 'tempBG1.png');
+    }
     create(){
         let textConfig = {
-            fontFamily: 'Arial',
+            fontFamily: 'Russo One',
             fontSize: '14px',
             color: '#FEFEFE',
             align: 'left',
@@ -15,12 +22,29 @@ class Title extends Phaser.Scene {
             },
             fixedWidth: 0
         }
-        this.add.text(game.config.width/2, game.config.height/2, 'Press R to start the game', textConfig).setOrigin(0.5);
-        this.add.text(game.config.width/2, game.config.height/2 + 100, 'Instructions:WASD for player1. Arrow keys for player2\n F for p1. Rctrl for p2.', textConfig).setOrigin(0.5);
-        this.add.text(game.config.width/2, game.config.height/2 + 150, 'Attack floating enemies or avoid them.', textConfig).setOrigin(0.5);
+        let title = {
+            fontFamily: 'Russo One',
+            fontSize: '28px',
+            color: '#FEFEFE',
+            align: 'left',
+            padding: {
+                top: 5,
+                bottom: 5,
+            },
+            fixedWidth: 0
+        }
+        this.add.image(game.config.width/2, game.config.height/2,'tempBG');
+        this.add.text(game.config.width/2, game.config.height/2 - 100,'Prototype chimera game',title).setOrigin(0.5);
+        this.add.text(game.config.width/2, game.config.height/2, 'Press R to start the game').setOrigin(0.5);
+        this.add.text(game.config.width/2, game.config.height/2 + 100, 'Instructions:WASD for player1. Arrow keys for player2\nF for p1. Rctrl for p2.').setOrigin(0.5);
+        this.add.text(game.config.width/2, game.config.height/2 + 150, 'Collect the most coins on the map to win the game and kill the ghosts with your \nsword to defend yourself.').setOrigin(0.5);
+        
+        this.add.image(150, game.config.height/2, 'Player1').setOrigin(0.5).setScale(2);
+        this.add.image(750, game.config.height/2,'flippedPlayer').setOrigin(0.5).setScale(2);
         
         keyR = this.input.keyboard.addKey(Phaser.Input.Keyboard.KeyCodes.R);
         
+
     }
     update(){
         if (keyR.isDown){
