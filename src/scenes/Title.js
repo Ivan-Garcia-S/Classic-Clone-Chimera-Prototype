@@ -40,7 +40,7 @@ class Title extends Phaser.Scene {
         this.add.text(game.config.width/2, game.config.height/2 + 150, 'Collect all coins to win the game and kill the ghosts with your sword.').setOrigin(0.5);
         
         this.add.image(150, game.config.height/2, 'Player1').setOrigin(0.5).setScale(2);
-        this.p2 = new Player(this, 750, game.config.height/2, keyW, keyS, keyA, keyD, keyCTRL, 'Player2').setScale(2);
+        this.p2 = new Player(this, 750, game.config.height/2, keyW, keyS, keyA, keyD, keyENTER, 'Player2').setScale(2);
         this.p2.flipX = true;
         keyR = this.input.keyboard.addKey(Phaser.Input.Keyboard.KeyCodes.R);
         
