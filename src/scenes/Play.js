@@ -126,7 +126,7 @@ class Play extends Phaser.Scene {
         //Enemy death animation
         this.anims.create({
             key: 'enemydeath',
-            frameRate: 4,
+            frameRate: 10,
             repeat: 0,
             frames: this.anims.generateFrameNumbers('enemy', { start: 0, end: 3 }),
         });
@@ -300,26 +300,38 @@ class Play extends Phaser.Scene {
             }, this);
             let p1Collider = this.physics.add.collider(newEnemy,this.p1, null, function(){
                 if(this.p1.isAttacking == true && this.p1.flipX == false && newEnemy.x > this.p1.x){
-                    newEnemy.destroy();
+                    newEnemy.enemyDeathAnim();
+                    this.time.delayedCall(200, () => {
+                        newEnemy.destroy();
+                    });
                 }
                 else if(this.p1.isAttacking == true && this.p1.flipX == true && newEnemy.x < this.p1.x){
-                    newEnemy.destroy();
+                    newEnemy.enemyDeathAnim();
+                    this.time.delayedCall(200, () => {
+                        newEnemy.destroy();
+                    });
                 }
                 else{
-                    newEnemy.destroy(); 
+                    newEnemy.destroy();
                     this.p1.x = 502;
                     this.p1.y = 330;
                 }
             }, this);
             let p2Collider = this.physics.add.collider(newEnemy,this.p2, null, function(){
                 if(this.p2.isAttacking == true && this.p2.flipX == false && newEnemy.x > this.p2.x){
-                    newEnemy.destroy();
+                    newEnemy.enemyDeathAnim();
+                    this.time.delayedCall(200, () => {
+                        newEnemy.destroy();
+                    });
                 }
                 else if(this.p2.isAttacking == true && this.p2.flipX == true && newEnemy.x < this.p2.x){
-                    newEnemy.destroy();
+                    newEnemy.enemyDeathAnim();
+                    this.time.delayedCall(200, () => {
+                        newEnemy.destroy();
+                    });
                 }
                 else{
-                    newEnemy.destroy(); 
+                    newEnemy.destroy();
                     this.p2.x = 502;
                     this.p2.y = 365;
                 }

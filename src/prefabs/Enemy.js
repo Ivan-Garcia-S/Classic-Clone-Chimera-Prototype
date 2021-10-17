@@ -24,4 +24,9 @@ class Enemy extends Phaser.Physics.Arcade.Sprite {
         
         
     }
+    enemyDeathAnim() {
+        this.anims.play('enemydeath', true);
+        this.body.setVelocity(0,0);
+        this.body.immovable = true;
+    }
 }
