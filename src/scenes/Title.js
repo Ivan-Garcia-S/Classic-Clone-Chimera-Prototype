@@ -43,7 +43,56 @@ class Title extends Phaser.Scene {
         this.p2 = new Player(this, 750, game.config.height/2, keyW, keyS, keyA, keyD, keyENTER, 'Player2').setScale(2);
         this.p2.flipX = true;
         keyR = this.input.keyboard.addKey(Phaser.Input.Keyboard.KeyCodes.R);
-        
+        //Create Player Animations
+        this.anims.create({
+            key: 'idle1',
+            frameRate: 8,
+            repeat: -1,
+            frames: this.anims.generateFrameNumbers('Player1', { start: 0, end: 19 }),
+        });
+        this.anims.create({
+            key: 'idle2',
+            frameRate: 8,
+            repeat: -1,
+            frames: this.anims.generateFrameNumbers('Player2', { start: 0, end: 19 }),
+        });
+        this.anims.create({
+            key: 'attack1',
+            frameRate: 16,
+            repeat: 0,
+            frames: this.anims.generateFrameNumbers('Player1', { start: 20, end: 31 }),
+        });
+        this.anims.create({
+            key: 'attack2',
+            frameRate: 16,
+            repeat: 0,
+            frames: this.anims.generateFrameNumbers('Player2', { start: 20, end: 31 }),
+        });
+        this.anims.create({
+            key: 'walk1',
+            frameRate: 8,
+            repeat: -1,
+            frames: this.anims.generateFrameNumbers('Player1', { start: 32, end: 41 }),
+        });
+        this.anims.create({
+            key: 'walk2',
+            frameRate: 8,
+            repeat: -1,
+            frames: this.anims.generateFrameNumbers('Player2', { start: 32, end: 41 }),
+        });
+        this.anims.create({
+            key: 'throw1',
+            frameRate: 8,
+            repeat: 0,
+            frames: this.anims.generateFrameNumbers('Player1', { start: 42, end: 43 }),
+        });
+        this.anims.create({
+            key: 'throw2',
+            frameRate: 8,
+            repeat: 0,
+            frames: this.anims.generateFrameNumbers('Player2', { start: 42, end: 43 }),
+        });
+
     }
     update(){
         if (keyR.isDown){
