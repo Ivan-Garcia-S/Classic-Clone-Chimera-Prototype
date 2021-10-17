@@ -7,7 +7,7 @@ class GameOver extends Phaser.Scene{
     }
     create(){
         let textconfig = {
-            fontFamily: 'Russo One',
+            fontFamily: 'Atari',
             fontSize: '12px',
             color: '#FEFEFE',
             align: 'left',
@@ -18,7 +18,7 @@ class GameOver extends Phaser.Scene{
             fixedWidth: 0
         }
         let title = {
-            fontFamily: 'Russo One',
+            fontFamily: 'Atari',
             fontSize: '32px',
             color: '#FEFEFE',
             align: 'left',

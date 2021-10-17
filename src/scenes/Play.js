@@ -324,7 +324,7 @@ class Play extends Phaser.Scene {
                 this.spawnEnemy = true;
             });
         }
-        if(this.p1.score + this.p2.score == 50){
+        if(this.p1.score + this.p2.score == 710){
             p1FinalScore = this.p1.score;
             p2FinalScore = this.p2.score;
             this.scene.start('gameOverScene');

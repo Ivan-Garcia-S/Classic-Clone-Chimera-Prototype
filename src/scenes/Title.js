@@ -12,7 +12,7 @@ class Title extends Phaser.Scene {
     }
     create(){
         let textConfig = {
-            fontFamily: 'Russo One',
+            fontFamily: 'Atari',
             fontSize: '14px',
             color: '#FEFEFE',
             align: 'left',
@@ -23,7 +23,7 @@ class Title extends Phaser.Scene {
             fixedWidth: 0
         }
         let title = {
-            fontFamily: 'Russo One',
+            fontFamily: 'Atari',
             fontSize: '28px',
             color: '#FEFEFE',
             align: 'left',
@@ -35,9 +35,9 @@ class Title extends Phaser.Scene {
         }
         this.add.image(game.config.width/2, game.config.height/2,'tempBG');
         this.add.text(game.config.width/2, game.config.height/2 - 100,'Prototype chimera game',title).setOrigin(0.5);
-        this.add.text(game.config.width/2, game.config.height/2, 'Press R to start the game').setOrigin(0.5);
-        this.add.text(game.config.width/2, game.config.height/2 + 100, 'Arrow keys for player1, Instructions:WASD for player2. \nEnter to attack for p1.F to attack for p2.\nThe red samurai is player1 and the blue one is player2').setOrigin(0.5);
-        this.add.text(game.config.width/2, game.config.height/2 + 150, 'Collect the most coins on the map to win the game and kill the ghosts with your \nsword to defend yourself.').setOrigin(0.5);
+        this.add.text(game.config.width/2, game.config.height/2, 'Press R to start the game', textConfig).setOrigin(0.5);
+        this.add.text(game.config.width/2, game.config.height/2 + 100, 'Arrow keys for player1, Instructions:WASD for player2. \nEnter to attack for p1.F to attack for p2.\nThe red samurai is player1 and the blue one is player2', textConfig).setOrigin(0.5);
+        this.add.text(game.config.width/2, game.config.height/2 + 150, 'Collect the most coins on the map to win the game and kill the ghosts with your \nsword to defend yourself.' ,textConfig).setOrigin(0.5);
         this.add.text(150,game.config.height/2 + 50, 'p1').setOrigin(0.5).setScale(2);
         this.add.text(750,game.config.height/2 + 50, 'p2').setOrigin(0.5).setScale(2);
         this.add.image(150, game.config.height/2, 'Player1').setOrigin(0.5).setScale(2);
