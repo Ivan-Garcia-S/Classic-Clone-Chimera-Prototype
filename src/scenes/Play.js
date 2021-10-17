@@ -21,11 +21,11 @@ class Play extends Phaser.Scene {
         this.load.image('sides', 'Left_right.png');
         this.load.image('bullet', "Bullet.png");
         this.load.image('blip', 'orb.png');
-        this.load.image('enemy', 'enemy.png');
         this.load.audio('hit', 'Hit.wav');  //Created by colorsCrimsonTears on freesound.org
         this.load.audio('coin', 'coin.wav');  //Created by SRJA_Gaming on freesound.org
         this.load.spritesheet('Player1', 'PlayerRed.png', {frameWidth: 32, frameHeight: 32});
         this.load.spritesheet('Player2', 'PlayerBlue.png', {frameWidth: 32, frameHeight: 32});
+        this.load.spritesheet('enemy' , 'enemyspritesheet.png', {frameWidth: 24, frameHeight:24});
         this.load.image('tempBG', 'tempBG1.png');
     }
 
@@ -120,7 +120,13 @@ class Play extends Phaser.Scene {
             repeat: 0,
             frames: this.anims.generateFrameNumbers('Player2', { start: 42, end: 43 }),
         });
-
+        //Enemy death animation
+        this.anims.create({
+            key: 'enemydeath',
+            frameRate: 4,
+            repeat: 0,
+            frames: this.anims.generateFrameNumbers('enemy', { start: 0, end: 3 }),
+        });
         //create players
         this.p1 = new Player(this, 415, 315, keyUP, keyDOWN, keyLEFT, keyRIGHT, keyENTER, 'Player1');
         // this.p1.scale = .5;
