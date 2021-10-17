@@ -23,10 +23,12 @@ class Player extends Phaser.Physics.Arcade.Sprite {
             this.anims.play('idle1', true);
         } else {
             this.anims.play('idle2', true);
+            this.flipX = true;
         }
 
         //True if player is attacking
         this.isAttacking = false;
+        this.attackTime = 0;
     }
 
     update(scene, time) {
@@ -51,14 +53,14 @@ class Player extends Phaser.Physics.Arcade.Sprite {
         //Change player hitbox on attack
         if (this.isAttacking == true) {
             this.body.width = 30;
-            if (this.dir == "right") {
+            if (this.dir == "Right") {
                 this.body.offset.x = 3;
             } else {
                 this.body.offset.x = 1;
             }
         } else {
             this.body.width = 20;
-            if (this.dir == "right") {
+            if (this.dir == "Right") {
                 this.body.offset.x = 3;
             } else {
                 this.body.offset.x = 5;
