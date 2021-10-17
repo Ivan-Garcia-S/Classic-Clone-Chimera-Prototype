@@ -7,7 +7,7 @@ class Title extends Phaser.Scene {
         this.load.path = './assets/'; 
         this.load.spritesheet('Player1', 'PlayerRed.png', {frameWidth: 32, frameHeight: 32});
         this.load.image('p2', 'Player_2.png');
-        this.load.spritesheet('Player2', 'PlayerBlueF.png', {frameWidth: 32, frameHeight: 32});
+        this.load.spritesheet('flippedPlayer', 'PlayerBlueF.png', {frameWidth: 32, frameHeight: 32});
         this.load.image('tempBG', 'tempBG.png');
     }
     create(){
@@ -40,7 +40,7 @@ class Title extends Phaser.Scene {
         this.add.text(game.config.width/2, game.config.height/2 + 150, 'Collect all coins to win the game and kill the ghosts with your sword.').setOrigin(0.5);
         
         this.add.image(150, game.config.height/2, 'Player1').setOrigin(0.5).setScale(2);
-        this.add.image(750, game.config.height/2,'Player2').setOrigin(0.5).setScale(2);
+        this.add.image(750, game.config.height/2,'flippedPlayer').setOrigin(0.5).setScale(2);
         
         keyR = this.input.keyboard.addKey(Phaser.Input.Keyboard.KeyCodes.R);
         
