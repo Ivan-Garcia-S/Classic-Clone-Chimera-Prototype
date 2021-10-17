@@ -20,13 +20,13 @@ class Play extends Phaser.Scene {
         this.load.image('Top', 'Top_bottom.png');
         this.load.image('sides', 'Left_right.png');
         this.load.image('bullet', "Bullet.png");
-        this.load.image('blip', 'Blip.png');
-        this.load.image('enemy', 'Temp_Enemy.png');
+        this.load.image('blip', 'orb.png');
+        this.load.image('enemy', 'enemy.png');
         this.load.audio('hit', 'Hit.wav');  //Created by colorsCrimsonTears on freesound.org
         this.load.audio('coin', 'coin.wav');  //Created by SRJA_Gaming on freesound.org
         this.load.spritesheet('Player1', 'PlayerRed.png', {frameWidth: 32, frameHeight: 32});
         this.load.spritesheet('Player2', 'PlayerBlue.png', {frameWidth: 32, frameHeight: 32});
-        this.load.image('tempBG', 'tempBG.png');
+        this.load.image('tempBG', 'tempBG1.png');
     }
 
     create() {
@@ -69,7 +69,7 @@ class Play extends Phaser.Scene {
         keyTAB = this.input.keyboard.addKey(Phaser.Input.Keyboard.KeyCodes.TAB);
         keyR = this.input.keyboard.addKey(Phaser.Input.Keyboard.KeyCodes.R);
         // temporary attack key for p2
-        keyCTRL = this.input.keyboard.addKey(Phaser.Input.Keyboard.KeyCodes.CTRL);
+        keyENTER = this.input.keyboard.addKey(Phaser.Input.Keyboard.KeyCodes.ENTER);
 
         //Create Player Animations
         this.anims.create({
@@ -122,10 +122,10 @@ class Play extends Phaser.Scene {
         });
 
         //create players
-        this.p1 = new Player(this, 415, 315, keyUP, keyDOWN, keyLEFT, keyRIGHT, keyF, 'Player1');
+        this.p1 = new Player(this, 415, 315, keyUP, keyDOWN, keyLEFT, keyRIGHT, keyENTER, 'Player1');
         // this.p1.scale = .5;
 
-        this.p2 = new Player(this, 575, 315, keyW, keyS, keyA, keyD, keyCTRL, 'Player2');
+        this.p2 = new Player(this, 575, 315, keyW, keyS, keyA, keyD, keyF, 'Player2');
         //this.p2.scale = .5;
 
         //Groups
@@ -220,10 +220,12 @@ class Play extends Phaser.Scene {
                 let blip
                 if(j == 6){
                     blip = this.physics.add.image(200 + 62*i, 210 + j*55 + 10, 'blip');
+                    blip.setScale(0.4);
                 }
                 else if (!((i == 4 && j == 2) || (i == 4 && j == 3) || (i == 5 && j == 2) || 
                          (i == 5 && j == 3) || (i == 6 && j == 2) || (i == 6 && j ==3))){
                     blip = this.physics.add.image(200 + 62*i, 210 + j*55, 'blip');
+                    blip.setScale(0.4);
                 }
                 let collider8 = this.physics.add.collider(this.p1, blip, null, function(){
                     blip.destroy();

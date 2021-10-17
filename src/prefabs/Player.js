@@ -24,6 +24,8 @@ class Player extends Phaser.Physics.Arcade.Sprite {
         } else {
             this.anims.play('idle2', true);
         }
+
+        //True if player is attacking
         this.isAttacking = false;
     }
 
@@ -44,6 +46,22 @@ class Player extends Phaser.Physics.Arcade.Sprite {
                 } else {
                     this.anims.play('idle2', true);
                 }
+            }
+        }
+        //Change player hitbox on attack
+        if (this.isAttacking == true) {
+            this.body.width = 30;
+            if (this.dir == "right") {
+                this.body.offset.x = 3;
+            } else {
+                this.body.offset.x = 1;
+            }
+        } else {
+            this.body.width = 20;
+            if (this.dir == "right") {
+                this.body.offset.x = 3;
+            } else {
+                this.body.offset.x = 5;
             }
         }
         //Play attack animation on button press
@@ -69,15 +87,15 @@ class Player extends Phaser.Physics.Arcade.Sprite {
             this.ACTION = true;
             if(this.dir == "Left"){
                 this.flipX = false;
-                this.angle = 90;
+                //this.angle = 90;
                 this.dir = "Down";
             }
             else if(this.dir == "Up"){
-                this.angle = 90;
+                //this.angle = 90;
                 this.dir = "Down";
             }
             else if(this.dir == "Right"){
-                this.angle = 90;
+                //this.angle = 90;
                 this.dir = "Down";
             }
             this.dir = "Down";
@@ -89,15 +107,15 @@ class Player extends Phaser.Physics.Arcade.Sprite {
             this.ACTION = true;
             if(this.dir == "Left"){
                 this.flipX = false;
-                this.angle = -90
+                //this.angle = -90
                 this.dir = "Up";
             }
             else if(this.dir == "Down"){
-                this.angle = -90;
+                //this.angle = -90;
                 this.dir = "Up";
             }
             else if(this.dir == "Right"){
-                this.angle = -90;
+                //this.angle = -90;
                 this.dir = "Up";
             }
             this.dir = "Up";
