@@ -20,7 +20,7 @@ let config = {
 
 let game = new Phaser.Game(config);
 
-let keySPACE, keyLEFT, keyRIGHT, keyESC, keyUP, keyDOWN, keyA, keyW, keyS, keyD, keyTAB, keyR, keyF, keyCTRL;
+let keySPACE, keyLEFT, keyRIGHT, keyESC, keyUP, keyDOWN, keyA, keyW, keyS, keyD, keyTAB, keyR, keyF, keyENTER;
 
 // Often used locations coordinates
 let screenWidth = game.config.width;
