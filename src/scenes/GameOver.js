@@ -32,7 +32,12 @@ class GameOver extends Phaser.Scene{
         
 
         this.title = this.add.text(-100, game.config.height/2,'Game Over!', title);
-        this.text = this.add.text(-100,game.config.height/2 + 100, "Press R to play again", textconfig);
+        this.text = this.add.text(-100,game.config.height/2 + 100, "Press R to play again. E to return to title.", textconfig).setOrigin(0.5);
+        this.p1Wins = this.add.text(-100, game.config.height/2 + 150,"p1 wins the game!", textconfig).setOrigin(0.5);
+        this.p2Wins = this.add.text(-100, game.config.height/2 + 150,"p2 wins the game!", textconfig).setOrigin(0.5);
+        this.tie = this.add.text(-100, game.config.height/2 + 150,"the game is a tie.", textconfig).setOrigin(0.5);
+        keyR = this.input.keyboard.addKey(Phaser.Input.Keyboard.KeyCodes.R);
+        keyE = this.input.keyboard.addKey(Phaser.Input.Keyboard.KeyCodes.E);
         
     }
     update(){
@@ -50,5 +55,31 @@ class GameOver extends Phaser.Scene{
             ease: 'Power2',
             
         });
+        if(p1FinalScore > p2FinalScore){
+            this.tweens.add({
+                targets: this.p1Wins,
+                x: 450,
+                duration: 500,
+                ease: 'Power2',
+                
+            });
+        }
+        if(p2FinalScore > p1FinalScore){
+            this.tweens.add({
+                targets: this.p2Wins,
+                x: 450,
+                duration: 500,
+                ease: 'Power2',
+                
+            });
+        }
+        if (keyR.isDown){
+            // start next scene
+            this.scene.start('playScene');
+        }
+        if (keyE.isDown){
+            // start next scene
+            this.scene.start('titleScene');
+        }
     }
 }

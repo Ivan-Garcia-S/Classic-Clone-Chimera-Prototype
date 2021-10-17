@@ -296,7 +296,14 @@ class Play extends Phaser.Scene {
                 this.spawnEnemy = true;
             });
         }
-
+        if(this.p1.score + this.p2.score == 710){
+            p1FinalScore = this.p1.score;
+            p2FinalScore = this.p2.score;
+            this.scene.start('gameOverScene');
+        }
+        // if(this.blips.getLength() == 0){
+        //     this.scene.start('gameOverScene');
+        // }
         if(Phaser.Input.Keyboard.JustDown(keyR)) {
             this.scene.start('playScene');
         }
