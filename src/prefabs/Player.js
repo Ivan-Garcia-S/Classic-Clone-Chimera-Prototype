@@ -88,7 +88,7 @@ class Player extends Phaser.Physics.Arcade.Sprite {
             this.body.velocity.x = 0;
             this.ACTION = true;
             if(this.dir == "Left"){
-                this.flipX = false;
+                //this.flipX = false;
                 //this.angle = 90;
                 this.dir = "Down";
             }
@@ -108,7 +108,7 @@ class Player extends Phaser.Physics.Arcade.Sprite {
             this.body.velocity.x = 0;
             this.ACTION = true;
             if(this.dir == "Left"){
-                this.flipX = false;
+                //this.flipX = false;
                 //this.angle = -90
                 this.dir = "Up";
             }
@@ -153,10 +153,12 @@ class Player extends Phaser.Physics.Arcade.Sprite {
                 this.dir = "Right";
             }
             else if(this.dir == "Up"){
+                this.flipX = false;
                 this.angle = 0;
                 this.dir = "Right";
             }
             else if(this.dir == "Down"){
+                this.flipX=false;
                 this.angle = 0;
                 this.dir = "Right";
             }
