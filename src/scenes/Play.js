@@ -309,7 +309,7 @@ class Play extends Phaser.Scene {
                 if(this.p2.isAttacking == true && this.p2.flipX == false && newEnemy.x > this.p2.x){
                     newEnemy.destroy();
                 }
-                else if(this.p1.isAttacking == true && this.p2.flipX == true && newEnemy.x < this.p2.x){
+                else if(this.p2.isAttacking == true && this.p2.flipX == true && newEnemy.x < this.p2.x){
                     newEnemy.destroy();
                 }
                 else{
