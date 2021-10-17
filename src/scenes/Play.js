@@ -51,7 +51,10 @@ class Play extends Phaser.Scene {
         this.p2Score = this.add.text(720, 110, "P2: 0", this.whiteTextConfig).setOrigin(0,0)
 
         this.restart = this.add.text(415, 20, "R to Restart", this.whiteTextConfig).setOrigin(0,0)
-        
+
+        //Sound 
+        this.coinGrab = this.sound.add('coin', {volume: 0.1});
+
         //Define keys
         keySPACE = this.input.keyboard.addKey(Phaser.Input.Keyboard.KeyCodes.SPACE);
         this.keyESC = this.input.keyboard.addKey(Phaser.Input.Keyboard.KeyCodes.ESC);
@@ -229,14 +232,14 @@ class Play extends Phaser.Scene {
                 }
                 let collider8 = this.physics.add.collider(this.p1, blip, null, function(){
                     blip.destroy();
-                    this.sound.play('coin');
+                    this.coinGrab.play();
                     this.p1.score += 10;
                     this.p1Score.text = "P1: " + this.p1.score;
                 }, this);
                 
                 let collider9 = this.physics.add.collider(this.p2, blip, null, function(){
                     blip.destroy();
-                    this.sound.play('coin');
+                    this.coinGrab.play();
                     this.p2.score += 10;
                     this.p2Score.text = "P2: " + this.p2.score;
                 }, this);
@@ -248,6 +251,15 @@ class Play extends Phaser.Scene {
         let collider = this.physics.add.collider(this.p1, this.p2, null, function(){
             this.p1.setVelocity(0,0);
             this.p2.setVelocity(0,0);
+            if(this.p1.isAttacking){
+                this.p2.x = 502;
+                this.p2.y = 365;
+            }
+            else if(this.p2.isAttacking){
+                this.p1.x = 502;
+                this.p1.y = 330;
+            }
+
         }, this);
         let player_wall_collider = this.physics.add.collider(this.p1, this.recs, null, function(){
             this.p1.setVelocity(0,0);
@@ -281,14 +293,30 @@ class Play extends Phaser.Scene {
                 //newEnemy.setBounce(1,1);
             }, this);
             let p1Collider = this.physics.add.collider(newEnemy,this.p1, null, function(){
-                newEnemy.destroy();
-                this.p1.x = 502;
-                this.p1.y = 365;
+                if(this.p1.isAttacking == true && this.p1.flipX == false && newEnemy.x > this.p1.x){
+                    newEnemy.destroy();
+                }
+                else if(this.p1.isAttacking == true && this.p1.flipX == true && newEnemy.x < this.p1.x){
+                    newEnemy.destroy();
+                }
+                else{
+                    newEnemy.destroy(); 
+                    this.p1.x = 502;
+                    this.p1.y = 330;
+                }
             }, this);
             let p2Collider = this.physics.add.collider(newEnemy,this.p2, null, function(){
-                newEnemy.destroy();
-                this.p2.x = 502;
-                this.p2.y = 365;
+                if(this.p2.isAttacking == true && this.p2.flipX == false && newEnemy.x > this.p2.x){
+                    newEnemy.destroy();
+                }
+                else if(this.p2.isAttacking == true && this.p2.flipX == true && newEnemy.x < this.p2.x){
+                    newEnemy.destroy();
+                }
+                else{
+                    newEnemy.destroy(); 
+                    this.p2.x = 502;
+                    this.p2.y = 365;
+                }
             }, this);
             
             this.spawnEnemy = false;
